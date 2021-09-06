@@ -21,9 +21,9 @@ from pytgcalls.types.input_stream import (
 
 
 
-@UB.on_message(filters.user(Var.SUDO) & filters.command('stream', '!'))
+@UB.on_message(filters.user(Var.SUDO) & filters.command('vstream', '/'))
 async def stream_msg_handler(_, m: Message):
-    status = "Processing.."
+    status = "🔁 processing.."
     msg = await m.reply(status)
     stream_url = "https://feed.play.mv/live/10005200/7EsSDh7aX6/master.m3u8"
     try:
@@ -64,7 +64,7 @@ async def stream_msg_handler(_, m: Message):
 
 
 
-@UB.on_message(filters.user(Var.SUDO) & filters.command('stop', '!'))
+@UB.on_message(filters.user(Var.SUDO) & filters.command('vstop', '/'))
 async def stop_stream_msg_handler(_, m: Message):
     player = Player(m.chat.id)
     try:
@@ -75,4 +75,4 @@ async def stop_stream_msg_handler(_, m: Message):
     if instance:
         await player.leave_vc()
     else:
-        await m.reply("No streams going on vc")
+        await m.reply("🔴 no active streaming")
