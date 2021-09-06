@@ -15,9 +15,6 @@ from pytgcalls.types.input_stream import (
     InputAudioStream,
     InputVideoStream
 )
-#
-# base from https://github.com/TeamUltroid/Ultroid/blob/dev/vcbot/__init__.py
-# Thanks to TeamUltroid :)
 
 ms = {}
 now_playing = []
@@ -38,7 +35,7 @@ async def on_stream_end(client: PyTgCalls, update: Update):
         if not suc:
             await UB.send_message(update.chat_id, str(err))
         else:
-            await UB.send_message(update.chat_id, "Now playing: {}\nRequested by: {}".format(video, user.mention(style="md")))
+            await UB.send_message(update.chat_id, "💡 now playing: {}\n🎧 requested by: {}".format(video, user.mention(style="md")))
         return True
     else:
         await player.leave_vc()
@@ -108,7 +105,7 @@ class Player:
         else:
             data = [vid, is_path, m.from_user]
             pos = queues.add(self._current_chat, data)
-            await m.reply(f"Added to queue #{pos}")
+            await m.reply(f"💡 added to queue #{pos}")
             return False
             
     async def leave_vc(self):
@@ -116,7 +113,7 @@ class Player:
         pid = self.terminate_ffmpeg()
         status = f"Terminated FFmpeg with PID {pid}" if \
             pid else ""
-        status += "\nSuccessfully left vc!"
+        status += "\n✅ successfully leaving video chat!"
         now_playing.remove(self._current_chat)
         self.clear_played()
         await UB.send_message(self._current_chat, status)
@@ -136,9 +133,9 @@ class Player:
         for i in files:
             try:
                 os.remove(i)
-                print("Removed {}".format(i))
+                print("removed {}".format(i))
             except BaseException:
-                print("Couldn't remove {}".format(i))
+                print("couldn't remove {}".format(i))
             files.remove(i)
     
     def add_to_trash(self, file):
