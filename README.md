@@ -37,7 +37,7 @@ The run command is `python -m vcbot` btw :)
 
 - Click the button to deploy
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy) 
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/levina-lab/video-stream2)
 </details>
 
 <details>
