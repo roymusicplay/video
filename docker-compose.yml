@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  videostream2:
+    image: videostream2
+    build:
+      context: .
+      dockerfile: ./Dockerfile
