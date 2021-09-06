@@ -1,6 +1,6 @@
 {
-    "name": "TG-VoiceChat-VideoStreamer",
-    "description": "A Pyrogram Telegram bot to stream videos to voice chats..",
+    "name": "video stream 2 (BETA)",
+    "description": "telegram bot for streaming video on group video chat",
     "keywords": [
         "telegram",
         "stream",
@@ -12,10 +12,10 @@
         "modular",
         "pytgcalls"
       ],
-    "repository": "https://github.com/EverythingSuckz/tgvc-video-tests",
+    "repository": "https://github.com/levina-lab/video-stream2",
     "success_url": "/",
     "logo": "https://telegra.ph/file/8b9cfbe9aaf44f7ff4468.jpg",
-    "website": "https://github.com/EverythingSuckz/tgvc-video-tests",
+    "website": "https://github.com/levina-lab/video-stream2",
     "env": {
         "API_ID": {
             "description": "Get this value from https://my.telegram.org"
