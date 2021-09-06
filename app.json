@@ -16,6 +16,7 @@
     "success_url": "/",
     "logo": "https://telegra.ph/file/8b9cfbe9aaf44f7ff4468.jpg",
     "website": "https://github.com/levina-lab/video-stream2",
+    "stack": "container",
     "env": {
         "API_ID": {
             "description": "Get this value from https://my.telegram.org"
