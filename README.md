@@ -3,6 +3,8 @@ Just for testing video streaming using pytgcalls.
 
 #### **Note**: The features used in this repository is highly experimental and you might not get the result you wanted to see.
 
+[![Run on workflows](https://github.com/levina-lab/video-stream2/actions/workflows/run.yml/badge.svg?branch=main)](https://github.com/levina-lab/video-stream2/actions/workflows/run.yml)
+
 This bot works partially and this feature is still in beta and it is still experimental
 If you see any other repo like this, **Consider the person who made it as dumb** :)
 
