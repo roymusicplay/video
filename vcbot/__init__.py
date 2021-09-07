@@ -1,4 +1,4 @@
-mport logging
+import logging
 import time
 from pytgcalls import PyTgCalls
 from pyrogram import Client
