@@ -54,14 +54,14 @@ class Player:
         self.add_to_trash(audio)
         self.add_to_trash(video)
         while not os.path.exists(video) and not os.path.exists(audio):
-            await asyncio.sleep(0.1)
+            await asyncio.sleep(0.125)
         if change:
             await self.change_source(video, audio)
         else:
             await self.join_play(video, audio)
         return True, None
 
-    async def join_play(self, video, audio, width=1280, height=720, fps=20, bitrate=48000):
+    async def join_play(self, video, audio, width=1280, height=720, fps=20, bitrate=58000):
         await group_calls.join_group_call(
             self._current_chat,
             InputAudioStream(
@@ -82,7 +82,7 @@ class Player:
         )
         now_playing.append(self._current_chat)
 
-    async def change_source(self, video, audio, width=1280, height=720, fps=25, bitrate=48000):
+    async def change_source(self, video, audio, width=1280, height=720, fps=25, bitrate=58000):
         await group_calls.change_stream(
             self._current_chat,
             InputAudioStream(
@@ -96,7 +96,7 @@ class Player:
                 VideoParameters(
                     width=1280,
                     height=720,
-                    frame_rate=25,
+                    frame_rate=20,
                 )
             )
         )
