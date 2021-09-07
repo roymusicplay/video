@@ -16,9 +16,9 @@ async def ping_msg_handler(_, m: Message):
     end = datetime.now()
     ms = (end - start_ms).microseconds / 1000
     calls_ping = await group_calls.ping
-    await to_be_edited.edit('🏓 **Pong**\n`⟶` MS: {}\n`⟶` PyTgCalls ping: {}\n`⟶` Uptime: {}'.format(ms, calls_ping, uptime))
+    await to_be_edited.edit('🏓 **Pong**\n`⟶` ms: `{}`\n`⟶` PyTgCalls ping: `{}`\n`⟶` Uptime: {}'.format(ms, round(calls_ping, 2), uptime))
 
-@UB.on_message(filters.user(Var.SUDO) & filters.command('play', '/'))
+@UB.on_message(filters.user(Var.SUDO) & filters.command('play', '!'))
 async def play_msg_handler(_, m: Message):
     chat_id = m.chat.id
     player = Player(chat_id)
@@ -45,7 +45,7 @@ async def play_msg_handler(_, m: Message):
         return await m.reply("Error: this is a live link.\nTips: use /vstream command.")
     status = await m.reply("📥 downloading...")
     p = await player.play_or_queue(link, m, is_file)
-    await status.edit("▶ playing..." if p else "#️⃣ queued")
+    await status.edit("▶ streaming now..." if p else "#️⃣ queued")
 
 @UB.on_message(filters.user(Var.SUDO) & filters.command('leave', '!'))
 async def leave_handler(_, m: Message):
