@@ -1,22 +1,11 @@
 import re
-import time
+from vcbot import UB
 from vcbot.config import Var
 from pyrogram import filters
-from datetime import datetime
 from vcbot.player import Player
 from pyrogram.types import Message
-from vcbot import UB, to_delete, StartTime, group_calls
-from vcbot.helpers.utils import get_readable_time, is_ytlive
+from vcbot.helpers.utils import is_ytlive
 
-@UB.on_message(filters.command('ping', '/'))
-async def ping_msg_handler(_, m: Message):
-    to_be_edited = await m.reply('`pinging...`')
-    start_ms = datetime.now()
-    uptime = get_readable_time((time.time() - StartTime))
-    end = datetime.now()
-    ms = (end - start_ms).microseconds / 1000
-    calls_ping = await group_calls.ping
-    await to_be_edited.edit('🏓 **Pong**\n`⟶` ms: `{}`\n`⟶` PyTgCalls ping: `{}`\n`⟶` Uptime: {}'.format(ms, round(calls_ping, 2), uptime))
 
 @UB.on_message(filters.user(Var.SUDO) & filters.command('play', '!'))
 async def play_msg_handler(_, m: Message):
@@ -42,14 +31,14 @@ async def play_msg_handler(_, m: Message):
             link = m.reply_to_message
         # todo
     if is_live:
-        return await m.reply("Error: this is a live link.\nTips: use /vstream command.")
-    status = await m.reply("📥 downloading...")
+        return await m.reply("🚫 **error**: this is a live link.\ntips: use !stream command.")
+    if player.is_live:
+        return await m.reply("**Error**: A Live stream is already going on this chat.\nPlease `!leave` and play the file again.")
+    status = await m.reply("Downloading...")
     p = await player.play_or_queue(link, m, is_file)
-    await status.edit("▶ streaming now..." if p else "#️⃣ queued")
+    await status.edit("Playing.." if p else "Queued")
 
 @UB.on_message(filters.user(Var.SUDO) & filters.command('leave', '!'))
 async def leave_handler(_, m: Message):
     player = Player(m.chat.id)
     await player.leave_vc()
-
-
