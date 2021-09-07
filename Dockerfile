@@ -4,7 +4,9 @@ RUN apt-get update && apt-get upgrade -y && \
     npm
 RUN apt-get install npm
 RUN apt-get install git curl python3-pip ffmpeg -y
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_15.x | bash -
+RUN apt-get install -y nodejs
+RUN npm install -g npm@7.22.0
 RUN npm i -g npm
 WORKDIR /app
 COPY . /app
