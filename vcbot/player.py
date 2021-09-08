@@ -8,7 +8,7 @@ from pytgcalls import StreamType
 from pyrogram.types import Message
 from pytgcalls.types import Update
 from pytgcalls.pytgcalls import PyTgCalls
-from vcbot import UB, queues, group_calls, logging
+from vcbot import UB, queues, group_calls, LOG
 from vcbot.helpers.utils import generate_hash, tg_download, yt_download
 from pytgcalls.types.input_stream import (
     VideoParameters,
@@ -21,11 +21,11 @@ ms = {}
 
 @group_calls.on_stream_end()
 async def on_stream_end(client: PyTgCalls, update: Update):
-    logging.info(f"called ended stream")
+    LOG.info(f"called ended stream")
     cms = time.time()
     if k:= ms.get(update.chat_id):
         if cms-k < 10:
-            logging.info(cms-k)
+            LOG.info(cms-k)
             return
     ms[update.chat_id] = cms
     anything = queues.get(update.chat_id, False)
@@ -85,23 +85,20 @@ class Player:
     async def convert(self,
                       file_path: str,
                       delete=True,
-                      daemon=False):
-        audio_f = generate_hash(5) + 'audio' + ".raw"
-        video_f = generate_hash(5) + 'video' + ".raw"
-        cmd = ["ffmpeg", "-y", "-i", file_path, "-f", "s16le", "-ac", "1", "-ar", str(Var.BITRATE), audio_f, "-f", "rawvideo", '-r', str(Var.FPS), '-pix_fmt', 'yuv420p', '-vf', f'scale={Var.WIDTH}:-1', "-preset", "ultrafast", video_f]
+                      daemon=False,
+                      audio_file=None,
+                      video_file=None):
+        if not audio_file:
+            audio_file = generate_hash(5) + 'audio' + ".raw"
+        if not video_file:
+            video_file = generate_hash(5) + 'video' + ".raw"
+        cmd = ["ffmpeg", "-y", "-i", file_path, "-f", "s16le", "-ac", "1", "-ar", str(Var.BITRATE), audio_file, "-f", "rawvideo", '-r', str(Var.FPS), '-pix_fmt', 'yuv420p', '-vf', f'scale={Var.WIDTH}:-1', "-preset", "ultrafast", video_file]
+        proc = await asyncio.create_subprocess_exec(
+            *cmd, stdout=self.ffmpeg_log, stderr=asyncio.subprocess.STDOUT
+        )
         if daemon:
-            proc = subprocess.Popen(
-                cmd,
-                stdin=None,
-                stdout=self.ffmpeg_log,
-                stderr=subprocess.STDOUT,
-                cwd=None,
-            )
             self.meta['ffmpeg_process'] = proc
         else:
-            proc = await asyncio.create_subprocess_exec(
-                *cmd, stdout=self.ffmpeg_log, stderr=asyncio.subprocess.STDOUT
-            )
             await proc.communicate()
             self.ffmpeg_log.close()
         if delete:
@@ -109,9 +106,9 @@ class Player:
                 os.remove(file_path)
             except BaseException:
                 ...
-        while not os.path.exists(audio_f) and not os.path.exists(video_f):
+        while not os.path.exists(audio_file) and not os.path.exists(video_file):
             await asyncio.sleep(0.125)
-        return audio_f, video_f
+        return audio_file, video_file
 
     async def join_play(self, video, audio, width=Var.WIDTH, height=Var.HEIGHT, fps=Var.FPS, bitrate=Var.BITRATE):
         await group_calls.join_group_call(
@@ -166,7 +163,7 @@ class Player:
         else:
             data = [vid, is_path, m.from_user]
             pos = queues.add(self._current_chat, data)
-            await m.reply(f"#️⃣ added to the queue #{pos}")
+            await m.reply(f"#️⃣ added to queue #{pos}")
             return False
             
     async def leave_vc(self):
@@ -174,7 +171,7 @@ class Player:
         pid = await self.terminate_ffmpeg()
         status = f"Terminated FFmpeg with PID `{pid}`" if \
             pid else ""
-        status += "\n✅ disconnected from vc !"
+        status += "\n✅ **disconnected from vc!**"
         if self.is_playing:
             self.meta["is_playing"] = False
         self.meta["is_live"] = False
@@ -192,14 +189,14 @@ class Player:
                 return await x.pid
     
     def clear_played(self):
-        logging.info("Deleting additional files")
+        LOG.info("Deleting additional files")
         files = self.to_delete
         for i in files:
             try:
                 os.remove(i)
-                logging.info("Removed {}".format(i))
+                LOG.info("✅ removed {}".format(i))
             except BaseException:
-                logging.info("Couldn't remove {}".format(i))
+                LOG.info("🔺 couldn't remove {}".format(i))
             self.meta["to_delete"].remove(i)
     
     def add_to_trash(self, file):
