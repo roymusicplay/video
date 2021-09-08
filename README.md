@@ -12,7 +12,7 @@ an another telegram userbot for streaming video trought the telegram video chat.
 
 ## 🛠 Commands (sudo only)
 
-you can change who's people can access the userbot command, try to fork this repo and remove the filters.user{Var.SUDO} change to anything filters type available on pyrogram
+you can change who's people can access the userbot command, try to fork this repo and remove the `filters.user{Var.SUDO}` change to anything filters type available on pyrogram
 
 - !play (reply to video/file/provide yt url) - to stream video
 - !stream (provide yt url) - to stream a youtube live streaming
