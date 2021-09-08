@@ -23,7 +23,7 @@ ms = {}
 async def on_stream_end(client: PyTgCalls, update: Update):
     LOG.info(f"called ended stream")
     cms = time.time()
-    if k:= ms.get(update.chat_id):
+    if k == ms.get(update.chat_id):
         if cms-k < 10:
             LOG.info(cms-k)
             return
