@@ -7,7 +7,7 @@ an another telegram userbot for streaming video trought the telegram video chat.
 - `API_ID` : Get this value from my.telegram.org/apps
 - `API_HASH` : Get this value from my.telegram.org/apps
 - `SESSION` : visit [here](https://replit.com/@levinalab/StringSession#main.py) to obtain this value.
-- `SUDO` : User IDs of users who have access to use the bot commands. Separate each with space.
+- `SUDO` : User ID of users who have access to use the bot commands, separate each with space.
 - `BOT_TOKEN` : (Optional) Get this value from [BotFather](https://telegram.dog/BotFather).
 
 ## HOST ON HEROKU 💜
