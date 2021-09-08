@@ -5,7 +5,7 @@ import os
 import re
 import subprocess
 from io import StringIO, BytesIO
-from vcbot import UB, Var, logging
+from vcbot import UB, Var, LOG
 
 p = print
 
@@ -19,7 +19,7 @@ async def aexec(code, c, m):
 
 @UB.on_message(filters.user(Var.SUDO) & filters.command("eval", '!'))
 async def evaluate(client, message):
-    status_message = await message.reply_text("`Running ...`")
+    status_message = await message.reply_text("`running...`")
     try:
         cmd = message.text.split(" ", maxsplit=1)[1]
     except IndexError:
@@ -70,7 +70,7 @@ async def evaluate(client, message):
 @UB.on_message(filters.user(Var.SUDO) & filters.command("term", '!'))
 async def terminal(client, message):
     if len(message.text.split()) == 1:
-        await message.reply("Usage: `/term echo owo`")
+        await message.reply("usage: `/term echo owo`")
         return
     args = message.text.split(None, 1)
     teks = args[1]
@@ -86,7 +86,7 @@ async def terminal(client, message):
                     stderr=subprocess.PIPE
                 )
             except Exception as err:
-                logging.warning(err)
+                LOG.warning(err)
                 await message.reply("""
 **Error:**
 ```{}```
