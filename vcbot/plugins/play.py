@@ -29,14 +29,18 @@ async def play_msg_handler(_, m: Message):
         if m.reply_to_message.video:
             is_file = True
             link = m.reply_to_message
+        elif m.reply_to_message.text:
+            if match := re.search(r'((https?:\/\/)?(www\.)?(youtube|youtu|youtube-nocookie)\.(com|be)\/(watch\?v=|embed\/|v\/|.+\?v=)?([^&=%\?]{11}))', m.reply_to_message.text):
+                is_file = False
+                link = match.group(1)
         # todo
     if is_live:
         return await m.reply("🚫 **error**: this is a live link.\ntips: use !stream command.")
     if player.is_live:
-        return await m.reply("**Error**: A Live stream is already going on this chat.\nPlease `!leave` and play the file again.")
+        return await m.reply("🚫 **error**: any live stream is already going on this chat.\nexecute command `!leave` and play the file again.")
     status = await m.reply("📥 downloading video...")
     p = await player.play_or_queue(link, m, is_file)
-    await status.edit("💡 video streaming started\n\n» join to video chat on the top to watch streaming." if p else "#️⃣ queued\n\n» you request has been added to the queue.")
+    await status.edit("💡 video streaming started\n\n» join to video chat on the top to watch streaming." if p else "#️⃣ » your request has been added to the queue.")
 
 @UB.on_message(filters.user(Var.SUDO) & filters.command('leave', '!'))
 async def leave_handler(_, m: Message):
