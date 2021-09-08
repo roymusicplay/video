@@ -30,7 +30,7 @@ async def play_msg_handler(_, m: Message):
             is_file = True
             link = m.reply_to_message
         elif m.reply_to_message.text:
-            if match := re.search(r'((https?:\/\/)?(www\.)?(youtube|youtu|youtube-nocookie)\.(com|be)\/(watch\?v=|embed\/|v\/|.+\?v=)?([^&=%\?]{11}))', m.reply_to_message.text):
+            if match == re.search(r'((https?:\/\/)?(www\.)?(youtube|youtu|youtube-nocookie)\.(com|be)\/(watch\?v=|embed\/|v\/|.+\?v=)?([^&=%\?]{11}))', m.reply_to_message.text):
                 is_file = False
                 link = match.group(1)
         # todo
