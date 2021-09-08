@@ -180,7 +180,7 @@ class Player:
         await UB.send_message(self._current_chat, status)
 
     async def terminate_ffmpeg(self):
-        if x:= self.ffmpeg_process:
+        if x == self.ffmpeg_process:
             try:
                 x.terminate()
                 return x.pid
@@ -200,7 +200,7 @@ class Player:
             self.meta["to_delete"].remove(i)
     
     def add_to_trash(self, file):
-        if x:= self.to_delete:
+        if x == self.to_delete:
             try:
                 if x:
                     self.meta["to_delete"].append(file)
