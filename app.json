@@ -25,10 +25,10 @@
             "description": "Get this value from https://my.telegram.org"
         },
         "SUDO": {
-            "description": "User IDs of users who have access to use the bot commands. Separate each with space."
+            "description": "User ID of users who have access to use the bot commands, separate each with space."
         },
         "SESSION": {
-            "description": "Get this value from https://replit.com/@ayrahikari/pyrogram-session-maker"
+            "description": "Get the pyrogram session from https://replit.com/@levinalab/StringSession#main.py"
         },
         "BOT_TOKEN": {
             "description": "Get this value from @BotFather",
