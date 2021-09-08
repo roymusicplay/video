@@ -19,7 +19,7 @@ you can change who's people can access the userbot command, try to fork this rep
 - !stop - to stop the video streaming
 - !leave - order the userbot to leave from vc
 - !logs - send you the userbot logs
-- !term (for dev) - abou this, see on this [file](https://github.com/levina-lab/video-stream2/blob/main/vcbot/plugins/run_cmd.py)
+- !term (for dev) - to know about this, see on this [file](https://github.com/levina-lab/video-stream2/blob/main/vcbot/plugins/run_cmd.py)
 
 ## ✨ Features
 
