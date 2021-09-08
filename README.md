@@ -18,11 +18,11 @@ an another telegram userbot for streaming video trought the telegram video chat.
 
 ## Known Issues 🐛
 
-- ~~Video and audio sync issues.~~ (not anymore)
-- Some stream links may not be streamed.
-- Less audio quality.
-- breaks / lags in video when you play live videos
-- ~~In workflows, the `!stop` commands usually kills the whole bot.~~
+- ~~video and audio sync issues.~~ (fixed)
+- bug on queue feature.
+- low audio quality.
+- some stream links may not be streamed.
+- breaks & lags in video when you play live videos.
 
 ## Special Credits 💖
 
